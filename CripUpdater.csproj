@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<OutputType>Exe</OutputType>
+		<TargetFramework>net9.0-windows</TargetFramework>
+		<PublishSingleFile>true</PublishSingleFile>
+		<SelfContained>true</SelfContained>
+		<RuntimeIdentifier>win-x64</RuntimeIdentifier>
+		<RootNamespace>CripUpdater</RootNamespace>
+		<NeutralLanguage>en</NeutralLanguage>
+		<PublishTrimmed>false</PublishTrimmed>
+		<TrimMode>link</TrimMode>
+		<EnableCompressionInSingleFile>true</EnableCompressionInSingleFile>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<InvariantGlobalization>true</InvariantGlobalization>
+		<EnablePreviewFeatures>true</EnablePreviewFeatures>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="RestSharp" Version="112.1.1-alpha.0.4" />
+		<PackageReference Include="System.Text.Json" Version="10.0.0-preview.5.25277.114" />
+	</ItemGroup>
+
+</Project>
