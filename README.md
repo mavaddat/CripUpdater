@@ -11,7 +11,7 @@ Register-ScheduledTask -Xml @"
 <?xml version="1.0" encoding="UTF-16"?>
 <Task version="1.4" xmlns="http://schemas.microsoft.com/windows/2004/02/mit/task">
   <RegistrationInfo>
-    <Date>2025-01-30T13:31:53.5717228</Date>
+    <Date>$((Get-Date).ToString("yyyy-MM-ddTHH:mm:ss.fffffff"))</Date>
     <Author>$env:USERDOMAIN/$env:USERNAME</Author>
     <URI>\Update Certificate Ripper</URI>
   </RegistrationInfo>
