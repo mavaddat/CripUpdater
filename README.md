@@ -1,5 +1,7 @@
 # Hakky54 Certificate Ripper Updater
 
+[![.NET](https://github.com/mavaddat/CripUpdater/actions/workflows/dotnet.yml/badge.svg)](https://github.com/mavaddat/CripUpdater/actions/workflows/dotnet.yml)
+
 A small utility program to automatically update [Hakky54/certificate-ripper](https://github.com/Hakky54/certificate-ripper).
 
 Build and add the scheduled task like this \(in an [elevated PowerShell](https://www.ninjaone.com/blog/open-an-elevated-powershell-prompt/) session\):
