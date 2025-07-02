@@ -5,7 +5,7 @@ A small utility program to automatically update [Hakky54/certificate-ripper](htt
 Build and add the scheduled task like this:
 
 ```pwsh
-Set-Location -Path $env:USERPROFILE\source\repos\CripUpdater
+Set-Location -Path $env:USERPROFILE\source\repos\CripUpdater  # Or, wherever you cloned the repo
 dotnet publish --configuration Release -r win-x64
 Register-ScheduledTask -Xml @"
 <?xml version="1.0" encoding="UTF-16"?>
