@@ -4,7 +4,12 @@
 
 A small utility program to automatically update [Hakky54/certificate-ripper](https://github.com/Hakky54/certificate-ripper).
 
-Build and add the scheduled task like this \(in an [elevated PowerShell](https://www.ninjaone.com/blog/open-an-elevated-powershell-prompt/) session\):
+This program pairs well with two [scheduled tasks in Windows](https://en.wikipedia.org/wiki/Windows_Task_Scheduler):
+
+1. A task to periodically run this updater to keep CRIP current
+2. A task to periodically run CRIP to update the Java certificate store
+
+You can build the project and create the scheduled task like this \(in an [elevated PowerShell](https://www.ninjaone.com/blog/open-an-elevated-powershell-prompt/) session\):
 
 ```pwsh
 Set-Location -Path $env:USERPROFILE\source\repos\CripUpdater  # Or, wherever you cloned the repo
