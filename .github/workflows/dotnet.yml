@@ -32,9 +32,7 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: publish
-        path: |
-          ./bin/Release/net9.0-windows/win-x64/publish
-          ./bin/Release/net9.0-windows/win-x64/scripts
+        path: ./bin/Release/net9.0-windows/win-x64/publish
   
   release:
     needs: build
