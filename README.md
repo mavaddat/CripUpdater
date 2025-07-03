@@ -6,7 +6,7 @@ A small utility program to automatically update [Hakky54/certificate-ripper](htt
 
 This program pairs well with two [scheduled tasks in Windows](https://en.wikipedia.org/wiki/Windows_Task_Scheduler):
 
-1. A task to periodically run this to update CRIP
+1. A task to periodically run this updater to keep CRIP current
 2. A task to periodically run CRIP to update the Java certificate store
 
 You can build the project and create the scheduled task like this \(in an [elevated PowerShell](https://www.ninjaone.com/blog/open-an-elevated-powershell-prompt/) session\):
