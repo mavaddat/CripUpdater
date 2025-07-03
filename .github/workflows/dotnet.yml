@@ -51,7 +51,7 @@ jobs:
         artifacts: |
           publish/*.exe
           publish/*.pdb
-          publish/*.ps1
+          scripts/*.ps1
         body: "Release ${{ github.run_number }} (${{ github.sha }})"
         token: "${{ secrets.GITHUB_TOKEN }}"
         tag: "release-${{ github.run_number }}"
