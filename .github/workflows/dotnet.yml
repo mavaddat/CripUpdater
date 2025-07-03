@@ -32,7 +32,9 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: publish
-        path: ./bin/Release/net9.0-windows/win-x64/publish
+        path: |
+          ./bin/Release/net9.0-windows/win-x64/publish
+          ./bin/Release/net9.0-windows/win-x64/scripts
   
   release:
     needs: build
@@ -51,7 +53,7 @@ jobs:
         artifacts: |
           publish/*.exe
           publish/*.pdb
-          scripts/*.ps1
+          publish/scripts/*.ps1
         body: "Release ${{ github.run_number }} (${{ github.sha }})"
         token: "${{ secrets.GITHUB_TOKEN }}"
         tag: "release-${{ github.run_number }}"
