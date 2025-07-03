@@ -9,11 +9,19 @@ This program pairs well with two [scheduled tasks in Windows](https://en.wikiped
 1. A task to periodically run this updater to keep CRIP current
 2. A task to periodically run CRIP to update the Java certificate store
 
-You can build the project and create the scheduled task like this \(in an [elevated PowerShell](https://www.ninjaone.com/blog/open-an-elevated-powershell-prompt/) session\):
+You can either [download the latest release](https://github.com/mavaddat/CripUpdater/releases/latest) or build the project like this:
 
 ```pwsh
-Set-Location -Path $env:USERPROFILE\source\repos\CripUpdater  # Or, wherever you cloned the repo
+Set-Location -Path "$env:USERPROFILE\source\repos" # Or, wherever you want to clone the repo
+git clone "https://github.com/mavaddat/CripUpdater.git"
+Set-Location -Path "./CripUpdater"
 dotnet publish --configuration Release -r win-x64
+```
+
+Then, in an [elevated PowerShell](https://www.ninjaone.com/blog/open-an-elevated-powershell-prompt/) session, create the scheduled task to update CRIP like this:
+
+```pwsh
+Set-Location -Path "$env:USERPROFILE\source\repos\CripUpdater"  # Or, wherever you cloned or downloaded the release
 
 # Register a scheduled task to run the CRIP updater once a month
 Register-ScheduledTask -Xml @"
@@ -75,6 +83,12 @@ Register-ScheduledTask -Xml @"
   </Actions>
 </Task>
 "@
+```
+
+Again in an elevated PowerShell session, create the task to update the certificate store like this:
+
+```pwsh
+Set-Location -Path "$env:USERPROFILE\source\repos\CripUpdater"  # Or, wherever you cloned or downloaded the release
 
 # Register a scheduled task to update the certificates once a week
 Register-ScheduledTask -Xml @"
@@ -128,5 +142,4 @@ Register-ScheduledTask -Xml @"
   </Actions>
 </Task>
 "@
-
 ```
