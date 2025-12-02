@@ -8,11 +8,15 @@ $cripLocation = "$env:LOCALAPPDATA\Programs\certificate-ripper\crip.exe"
 # Allow passing the CRIP install directory as an argument
 if($args.Count -gt 0 -and (Test-Path -Path $args[0]) -and (Get-ChildItem -Path $args[0] -Include 'crip.exe' -Recurse | Measure-Object).Count -gt 0) {
     $cripLocation = Get-ChildItem -Path $args[0] -Include 'crip.exe' -Recurse | Select-Object -ExpandProperty FullName -First 1
-} elseif( -not (Test-Path -Path $cripLocation -PathType Leaf)) {
-    Write-Warning -Message "Could not find CRIP executable at '$cripLocation'"
+}
+
+Write-Verbose -Message "Using CRIP executable at '$cripLocation'" -Verbose
+
+if(-not (Test-Path -Path $cripLocation) -or -not (&$cripLocation *>&1 --version | Out-String | Select-String -Pattern 'Certificate Ripper.*?([\d\.]+)')){
+    Write-Verbose -Message "Certificate Ripper not found" -Verbose
     exit 1
 }
-Write-Verbose -Message "Using CRIP executable at '$cripLocation'" -Verbose
+
 &"$cripLocation" export der --destination="$env:TEMP\certs\" --resolve-ca --url="https://repo.maven.apache.org/maven2"  # Attempt to download certs for apache maven
 $certs = Get-ChildItem -Path "$env:TEMP\certs\"
 
