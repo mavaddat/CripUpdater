@@ -27,11 +27,25 @@ internal static class Program
         var response = client.Execute(request);
         if (response.Content is not { } jsonContent)
             throw new JsonException("JSON was empty");
-        var latest = JsonSerializer.Deserialize<LatestRelease>(jsonContent, Options);
-        if (latest is null)
-            throw new JsonException("JSON was null");
-        if(latest.Assets is null) throw new InvalidOperationException("No assets found");
-        if (latest.Assets.FirstOrDefault(asset=> asset.Name?.Contains("windows-amd64") == true) is not {} assetWin)
+        var latest = JsonSerializer.Deserialize<LatestRelease>(jsonContent, Options) ?? throw new JsonException("JSON was null");
+
+		// Check that we need to upgrade
+		var exePath = Path.Combine(
+	Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+	"Programs", "certificate-ripper", "crip.exe");
+
+		var installedVersion = await VersionChecker.GetInstalledVersionAsync(exePath);
+		Console.WriteLine($"Installed version: {installedVersion}");
+		Console.WriteLine($"Latest version: {latest.Name}");
+
+		if (latest.Name is not null && !VersionChecker.NeedsUpdate(installedVersion, latest.Name))
+		{
+			Console.WriteLine("Already up to date. Skipping download.");
+			return;
+		}
+
+        if (latest.Assets is null) throw new InvalidOperationException("No assets found");
+        if (latest.Assets.FirstOrDefault(asset=> asset.Name is not null && asset.Name.Contains("windows-amd64")) is not {} assetWin)
         {
             throw new InvalidOperationException("No windows-amd64 asset found");
         }
