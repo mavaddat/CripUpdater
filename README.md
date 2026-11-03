@@ -4,6 +4,10 @@
 
 A small utility program to automatically update [Hakky54/certificate-ripper](https://github.com/Hakky54/certificate-ripper).
 
+Demo: 
+
+https://github.com/user-attachments/assets/1675527a-a6fa-4e3a-9cb0-aef0aba3042d
+
 ## Using with Windows Scheduled Tasks
 
 This program pairs well with two [scheduled tasks in Windows](https://en.wikipedia.org/wiki/Windows_Task_Scheduler):
