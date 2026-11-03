@@ -31,7 +31,7 @@ jobs:
     # skipping this heavy step on Dependabot/User Pull Requests.
     - name: Publish
       if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-      run: dotnet publish --configuration Release -r win-x64
+      run: dotnet publish --no-build --configuration Release -r win-x64
       
     - name: Upload artifacts
       if: github.event_name == 'push' && github.ref == 'refs/heads/main'
@@ -51,14 +51,21 @@ jobs:
     steps:
     - name: Download artifacts
       uses: actions/download-artifact@v8
+      with:
+        name: publish
+        path: artifacts
+
+    - name: Show downloaded files
+      run: |
+        find artifacts -type f | sort
       
     - name: Create Release
       uses: ncipollo/release-action@v1
       with:
         artifacts: |
-          publish/*.exe
-          publish/*.pdb
-          publish/scripts/*.ps1
+          artifacts/**/*.exe
+          artifacts/**/*.pdb
+          artifacts/**/*.ps1
         body: "Release ${{ github.run_number }} (${{ github.sha }})"
         token: "${{ secrets.GITHUB_TOKEN }}"
         tag: "release-${{ github.run_number }}"
