@@ -31,12 +31,11 @@ internal static class Program
 		var latest = JsonSerializer.Deserialize<Releases>(jsonContent, Options) ?? throw new JsonException("JSON was null");
 
 		// Check that we need to upgrade
-		var exePath = Path.Combine(
-	Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-	"Programs", "certificate-ripper", "crip.exe");
+		var destinationPath = GetDestinationPath(args);
+		var exePath = Path.Combine(destinationPath, "crip.exe");
 
 		var installedVersion = await VersionChecker.GetInstalledVersionAsync(exePath);
-		Console.WriteLine($"Installed version: {installedVersion}");
+		Console.WriteLine($"Installed version: {installedVersion ?? "(not installed)"}");
 		Console.WriteLine($"Latest version: {latest.Name}");
 
 		if (latest.Name is not null && !VersionChecker.NeedsUpdate(installedVersion, latest.Name))
@@ -69,8 +68,6 @@ internal static class Program
 		{
 			throw new CryptographicException($"Local hash '{localHash}' did not match GitHub hash '{assetWin.Digest}'");
 		}
-
-		var destinationPath = GetDestinationPath(args);
 
 		Console.WriteLine($"Extracting '{outZip}' to '{destinationPath}'");
 		ZipFile.ExtractToDirectory(outZip, destinationPath, true);
